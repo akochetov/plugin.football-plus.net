@@ -59,7 +59,7 @@ def mainMenu(args):
     li = xbmcgui.ListItem(u'Последние матчи', iconImage=addon_icon, thumbnailImage=addon_icon)
         
     uri = build_url({
-        'func': 'openMenu',
+        'func': 'openLeague',
         'mpath': fp.getLastMatchesURL().encode('utf-8')
         })
     li.setProperty('fanart_image', addon_fanart)

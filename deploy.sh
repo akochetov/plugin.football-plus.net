@@ -1,10 +1,10 @@
-DIR="/home/pi/.kodi/addons/plugin.video.okino.tv/"
+DIR="/home/pi/.kodi/addons/plugin.football-plus.net/"
 if [ ! -d "$DIR" ]
 then
  mkdir "$DIR"
  mkdir "$DIR/resources/"
 fi
-cp okino.py "$DIR"
+cp fp.py "$DIR"
 cp icon.png "$DIR"
 cp default.py "$DIR"
 cp addon.xml "$DIR"

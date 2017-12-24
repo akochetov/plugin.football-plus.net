@@ -18,7 +18,7 @@ import json
 
 #constants
 url_base = 'http://football-plyus.net/'
-url_lastmatches = 'http://football-plyus.net/football/'
+url_lastmatches = '/football/'
 url_menu = 'menuItem'
 headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
