@@ -57,27 +57,27 @@ def showMessage(heading, message, times=3000, pics=addon_icon):
 
 def mainMenu(args):
     li = xbmcgui.ListItem(u'Последние матчи', iconImage=addon_icon, thumbnailImage=addon_icon)
-        
+
     uri = build_url({
         'func': 'openLeague',
         'mpath': fp.getLastMatchesURL().encode('utf-8')
         })
     li.setProperty('fanart_image', addon_fanart)
     xbmcplugin.addDirectoryItem(addon_handle, uri, li, True)
-    
+
     hits = fp.getMenuItems()
 
     for hit in hits:
         print('[%s]: mainMenu: hit [%s] image [%s] url [%s]' % (addon_id, hit.title().encode('utf-8'), hit.image().encode('utf-8'), hit.url().encode('utf-8')))
         li = xbmcgui.ListItem(hit.title(), iconImage=hit.image(), thumbnailImage=hit.image())
-        
+
         uri = build_url({
             'func': 'openMenu',
             'mtitle': hit.title().encode('utf-8'),
             'mimage': hit.image().encode('utf-8'),
             'mpath': hit.url().encode('utf-8')
         })
-        
+
         li.setInfo(type='Video', infoLabels={'title': hit.title(), 'plot': hit.title()})
         li.setProperty('fanart_image', addon_fanart)
         li.setProperty('IsPlayable', 'true')
@@ -88,18 +88,18 @@ def mainMenu(args):
 
 def openMenu(args):
     hits = fp.openMenu(args['mpath'][0])
-    
+
     for hit in hits:
         print('[%s]: mainMenu: hit [%s] image [%s] url [%s]' % (addon_id, hit.title().encode('utf-8'), hit.image().encode('utf-8'), hit.url().encode('utf-8')))
         li = xbmcgui.ListItem(hit.title(), iconImage=hit.image(), thumbnailImage=hit.image())
-        
+
         uri = build_url({
             'func': 'openLeague',
             'mtitle': hit.title().encode('utf-8'),
             'mimage': hit.image().encode('utf-8'),
             'mpath': hit.url().encode('utf-8')
         })
-        
+
         li.setInfo(type='Video', infoLabels={'title': hit.title(), 'plot': hit.title()})
         li.setProperty('fanart_image', addon_fanart)
         li.setProperty('IsPlayable', 'true')
@@ -110,18 +110,27 @@ def openMenu(args):
 
 def openLeague(args):
     hits = fp.openLeague(args['mpath'][0])
-    
+
     for hit in hits:
         print('[%s]: openLeague: hit [%s] image [%s] url [%s]' % (addon_id, hit.title().encode('utf-8'), hit.image().encode('utf-8'), hit.url().encode('utf-8')))
         li = xbmcgui.ListItem(hit.title(), iconImage=hit.image(), thumbnailImage=hit.image())
-        
-        uri = build_url({
+
+        uri = None
+        if hit.title() == fp.getPrevTitle or hit.title() == fp.getNextTitle():
+            uri = build_url({
+            'func': 'openLeague',
+            'mtitle': hit.title().encode('utf-8'),
+            'mimage': hit.image().encode('utf-8'),
+            'mpath': hit.url().encode('utf-8')
+            })
+        else:
+            uri = build_url({
             'func': 'openMatch',
             'mtitle': hit.title().encode('utf-8'),
             'mimage': hit.image().encode('utf-8'),
             'mpath': hit.url().encode('utf-8')
-        })
-        
+            })
+
         li.setInfo(type='Video', infoLabels={'title': hit.title(), 'plot': hit.title()})
         li.setProperty('fanart_image', addon_fanart)
         li.setProperty('IsPlayable', 'true')
@@ -129,21 +138,21 @@ def openLeague(args):
 
     xbmcplugin.setContent(addon_handle, 'movies')
     xbmcplugin.endOfDirectory(addon_handle)
-    
+
 def openMatch(args):
     hits = fp.openMatch(args['mpath'][0])
-    
+
     for hit in hits:
         print('[%s]: openMatch: hit [%s] image [%s] url [%s]' % (addon_id, hit.title().encode('utf-8'), hit.image().encode('utf-8'), hit.url().encode('utf-8')))
         li = xbmcgui.ListItem(hit.title(), iconImage=hit.image(), thumbnailImage=hit.image())
-        
+
         uri = build_url({
             'func': 'openVideo',
             'mtitle': hit.title().encode('utf-8'),
             'mimage': hit.image().encode('utf-8'),
             'mpath': hit.url().encode('utf-8')
         })
-        
+
         li.setInfo(type='Video', infoLabels={'title': hit.title(), 'plot': hit.title()})
         li.setProperty('fanart_image', addon_fanart)
         li.setProperty('IsPlayable', 'true')
