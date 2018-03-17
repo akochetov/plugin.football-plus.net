@@ -124,11 +124,11 @@ def openMatch(url):
 
     match_data=re.compile('Playerjs\(([\S\s]+?)\);').findall(html)
     print(match_data)
-    pics = re.compile('<meta property="og:image" content="([^"]+?)"/>').findall(html)
-    match_data=re.compile('"file":"\[HD\]([^"]+?)"').findall(match_data[0])
+    pics = re.compile('<meta property="og:image" content="([^"]+?)"').findall(html)
+    match_data=re.compile('"file":"[\[HD\]]{0,4}([^"]+?)"').findall(match_data[0])
 
     hits = []
     for i,dt in enumerate(match_data):
-        hits.append(SearchHit(url=match_data[i],title = str(i+1)+u' half',image=pics[0]))    
+        hits.append(SearchHit(url=match_data[i],title = str(i+1)+u' half',image=pics[0]))
 
     return hits
