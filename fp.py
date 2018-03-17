@@ -91,7 +91,9 @@ def openMenu(url):
     return hits
 
 def openLeague(url):
-    request = Request(url_base+url, headers=headers)
+    if not url.startswith(url_base):
+        url = url_base + url
+    request = Request(url, headers=headers)
 
     html = urlopen(request).read().decode('cp1251')
 

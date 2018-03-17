@@ -116,7 +116,7 @@ def openLeague(args):
         li = xbmcgui.ListItem(hit.title(), iconImage=hit.image(), thumbnailImage=hit.image())
 
         uri = None
-        if hit.title() == fp.getPrevTitle or hit.title() == fp.getNextTitle():
+        if hit.title() == fp.getPrevTitle() or hit.title() == fp.getNextTitle():
             uri = build_url({
             'func': 'openLeague',
             'mtitle': hit.title().encode('utf-8'),
