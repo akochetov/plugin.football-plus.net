@@ -17,6 +17,7 @@ import re
 import json
 
 #constants
+encoding = 'utf-8'
 prev_title = '<<'
 next_title = '>>'
 url_base = 'http://football-plyus.net/'
@@ -57,7 +58,7 @@ def getNextTitle():
 
 def getMenuItems():
     request = Request(url_base, headers=headers)
-    html = urlopen(request).read().decode('cp1251')
+    html = urlopen(request).read().decode(encoding)
 
     menus=re.compile('<a class="dropi angle-down">([^"]+?)</a>').findall(html)
 
@@ -76,7 +77,7 @@ def openMenu(url):
     else:
         request = Request(url_base + url, headers=headers)
 
-    html = urlopen(request).read().decode('cp1251')
+    html = urlopen(request).read().decode(encoding)
 
     menu_blocks=re.compile('<ul class="sub_nav">([\S\s]+?)</ul>').findall(html)
     menu_block = menu_blocks[int(url)]
@@ -95,7 +96,7 @@ def openLeague(url):
         url = url_base + url
     request = Request(url, headers=headers)
 
-    html = urlopen(request).read().decode('cp1251')
+    html = urlopen(request).read().decode(encoding)
 
     matches=re.compile('<article class="shortstory news1 cf">([\S\s]+?)</article>').findall(html)
 
@@ -122,7 +123,7 @@ def openLeague(url):
 def openMatch(url):
     request = Request(url, headers=headers)
 
-    html = urlopen(request).read().decode('cp1251')
+    html = urlopen(request).read().decode(encoding)
 
     match_data=re.compile('Playerjs\(([\S\s]+?)\);').findall(html)
     print(match_data)
